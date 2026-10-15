@@ -1,0 +1,5 @@
+DPType,DPElement,Type,Direction,PLC Address,Notes
+ConnSeq,ReqCode,Int,Output,HMI.<Element>ConnSeq.HMI_ReqCode,Address corrected: the DB84 struct is <Element>ConnSeq.
+ConnSeq,HMI_Ack,Bool,Output,HMI.<Element>ConnSeq.HMI_Ack,Address corrected: the DB84 struct is <Element>ConnSeq.
+ConnSeq,State,Int,Input,<ConnSeq_DB>.State,"Address corrected: lives in the element's FB_ConnSeq instance DB, not DB84."
+ConnSeq,FaultStep,Int,Input,<ConnSeq_DB>.FaultStep,"Address corrected: lives in the element's FB_ConnSeq instance DB, not DB84."

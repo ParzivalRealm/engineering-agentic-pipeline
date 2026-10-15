@@ -1,0 +1,26 @@
+Sheet,Item,Change,Reason
+SafeStackPLCHMIInterfaceMap,Columns,"Added Cardinality, PLC Block, Role, Persistence. Second Notes column renamed HMI Notes.",Role and Persistence decide the WinCC OA direction. PLC Block is needed because ConnSeq draws from two blocks. Two columns named Notes are ambiguous to a reader or a tool.
+SafeStackPLCHMIInterfaceMap,"Global HMI_ReqCode, HMI_Ack",Removed from Global.,Duplicated the Per-Element rows with a conflicting direction. The 'Both' came from the PLC handover and was wrong.
+SafeStackPLCHMIInterfaceMap,ManualMode,Added to Global.,Present in PMHMI but missing from the map.
+SafeStackPLCHMIInterfaceMap,PNL MAP links,PNLMAP_VALVSV to PNLMAP_VALVESV; PNLMapSystemStatus to PNLMAPSystemStatus; PMAnalog to PNLMAPAnalog.,Did not match a sheet name.
+SafeStackPLCHMIInterfaceMap,Retain.HMI.Config.SAM / SAV,Split into two rows.,"One member per row, so each maps to exactly one DPE."
+SafeStackPLCHMIInterfaceMap,"ESMXV, SAI",ESMXV start 27648 to 100.0; passthrough and raw-count notes removed.,Stale after PLC OI-01 was reverted.
+SafeStackPLCHMIInterfaceMap,HMI.Controls.Mode,Direction HMI to PLC to PLC to HMI.,FB4 writes it every scan.
+SafeStackPLCHMIInterfaceMap,Setpoint notes,"VentSP, UnlockConfirmSP, LockConfirmSP now name FB8 or FB9 as consumers.",Per PLC OI-21.
+SafeStackPLCHMIInterfaceMap,Unbound members,"HMI Notes flag ManualMode, SequenceInProgress, HMI_Ack, FaultStep, Alarm.Alarms as not yet bound.",Makes coverage gaps visible.
+PMHMI,"ManualMode, VentSP, UnlockConfirmSP, LockConfirmSP, HoldTol, Estop.Valves",Output to In/Out.,"Non-retain Settings: a PLC restart restores start values, and an Output-only DPE never lets the HMI see that."
+PMConnSeq,"ReqCode, HMI_Ack",Address HMI.<Element>.X to HMI.<Element>ConnSeq.X.,Matches the DB84 struct names and the interface map.
+PMConnSeq,"State, FaultStep",Address HMI.<Element>.X to <ConnSeq_DB>.X.,"They live in the element's FB_ConnSeq instance DB, not DB84. Placeholder style matches <ValveSV_DB> and <TX-AI_DB>."
+PMValveSV,Control.Mode,Renamed State.Mode; Output to Input.,PLC-owned.
+PMValveSV,Control.Cmd,Output to In/Out.,Returns to 0 on PLC restart.
+PMValveSV,"HMI.State.Lockout, HMI.Alarm.Permissive","Renamed State.Lockout, Alarm.Permissive.","Harmonised with SSAC_Analog: Control.*, State.*, Alarm.*."
+PMAnalog,Alarm.Alarms,Float to Bit32.,Bit-packed Word.
+PMAnalog,Config.FaultSubValue,Bool to Float.,SAV is a Real.
+PMAnalog,Setpoint.*,Address SP.Limits.HHH to SP.Limits.*.,Covers all eight limits.
+All PNLMAP sheets,Columns,Added PARA MAP and Notes.,Join key back to the DPE. Resolves which shape handles which value when a panel binds several.
+All PNLMAP sheets,Action,Read replaced by Get or Subscribe.,See Glossary.
+All PNLMAP sheets,Event casing,"initialize, clicked to Initialize, Clicked.",Consistency.
+PNLMAPSettings,HoldTol,"Added row, shape TBD.",Settings covers HoldTol.
+PNLMAPEstopBtn,Row,Added placeholder row.,Sheet was empty.
+PNLMAP_VALVESV,"btnManual, btnAutomatic",Set removed.,Mode is Input only on SafeStack.
+PNLMAPAnalog,Bindings,"Inferred for PRIMITIVE_TEXT2, checkbox / PANEL_REF4, PANEL_REF9-14; PANEL_REF1 and 2 left TBD.",Inferred from shape type and count. Confirm.

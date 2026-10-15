@@ -1,0 +1,5 @@
+ID,Where,DPEs,Disagreement,Why it matters
+X1,SSAC library,559,"The SSAC_ANALOG master makes most Settings Input: EngMin, FaultSubValue, Hysteresis, Mode, and limits HH to UR. Yet HHH, EngMax and Config.Alarms are In/Out.","The transmitter faceplate can write only the HHH limit, and commissioning can write EngMax but not EngMin - half the OI-01 path. The master is inconsistent with itself, so this is a library fix, and it affects every project using SSAC_ANALOG."
+X2,SSAC library,70,The SSAC_VALVE_SV master has Control.Cmd and Control.Mode as Output.,"Fine for the library. On SafeStack, Control.Mode is overwritten every scan by FB4 (Status), and Control.Cmd returns to 0 on PLC restart, which an Output-only DPE never sees. Project-level override or accept."
+X3,Project,6,"HMI setpoints, HoldTol, ManualMode and Estop.Valves are Output; cross table v2 recommended In/Out.","After a PLC restart the HMI keeps showing its last write, not the start values the PLC returned to. Most visible on Estop.Valves."
+X4,Project,16,ConnSeq.HMI_Ack is In/Out; cross table v2 said Output.,Harmless. Align either the rule or the config.

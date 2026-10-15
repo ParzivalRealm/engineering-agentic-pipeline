@@ -1,0 +1,7 @@
+Location,PNL FileName,Shape/Ref,Event,Action,PARA MAP,Notes
+SSACLib/objects/SSAC_OBJECTS/,SSAC_Analog.xml,PRIMITIVE_TEXT2,Initialize,Subscribe,PMAnalog.State.Value,
+SSACLib/objects/SSAC_OBJECTS/,SSAC_Analog.xml,PANEL_REF1,Initialize,Get,PMAnalog.Alarm.*,
+SSACLib/objects_parts/faceplates/ssac_analog/,config.xml,"checkbox, PANEL_REF4","Initialize, Clicked","Get, Set",PMAnalog.Config.FaultSubValueEnable,
+SSACLib/objects_parts/faceplates/ssac_analog/,main.xml,PANEL_REF9-14,"Initialize, Command","Get, Set",PMAnalog.Setpoint.*,
+SSACLib/objects_parts/faceplates/ssac_analog/,config.xml,PANEL_REF1,"Initialize, Command","Get, Set",PMAnalog.Config.EngMax,
+SSACLib/objects_parts/faceplates/ssac_analog/,config.xml,PANEL_REF2,"Initialize, Command","Get, Set",PMAnalog.Config.EngMin,

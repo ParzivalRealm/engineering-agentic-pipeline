@@ -1,0 +1,15 @@
+where,item,rule,issue
+Interface map,ManualMode,3,"points to PNLMAPSystemStatus, but no shape there binds PMHMI.ManualMode"
+Interface map,WinCC_OA_InitiateDisconnectSeq,3,"points to PNLMAPSystemStatus, but no shape there binds PMHMI.WinCC_OA_InitiateDisconnectSeq"
+Interface map,WinCC_OA_InitiateReconnectSeq,3,"points to PNLMAPSystemStatus, but no shape there binds PMHMI.WinCC_OA_InitiateReconnectSeq"
+Interface map,SequenceInProgress,4,not bound to any panel
+Interface map,<Element>ConnSeq.HMI_Ack,3,"points to PNLMAPSSChangeStatePopup, but no shape there binds PMConnSeq.HMI_Ack"
+Interface map,FaultStep,3,"points to PNLMAPSystemStatus, but no shape there binds PMConnSeq.FaultStep"
+Interface map,HMI.Status.Lockout,3,"points to PNLMAP_VALVESV, but no shape there binds PMValveSV.State.Lockout"
+Interface map,HMI.Alarms.Permissive,3,"points to PNLMAP_VALVESV, but no shape there binds PMValveSV.Alarm.Permissive"
+Interface map,HMI.Alarm.Alarms,3,"points to PNLMAPAnalog, but no shape there binds PMAnalog.Alarm.Alarms"
+Interface map,Retain.HMI.Config.SAV,3,"points to PNLMAPAnalog, but no shape there binds PMAnalog.Config.FaultSubValue"
+PNLMAPSSChangeStatePopup,HMI_ACK,5,PARA MAP 'PMConnsSeq.HMI_Ack' is not a DPE in any PM sheet
+PNLMAPSystemStatus,PUSH_BUTTON1,5,PARA MAP 'HMI.WinCC_OA_InitiateDisconnectSeq' is not a DPE in any PM sheet
+PNLMAPSystemStatus,PUSH_BUTTON2,5,PARA MAP 'HMI.WinCC_OA_InitiateReconnectSeq' is not a DPE in any PM sheet
+PNLMAPSystemStatus,TABLE1,5,PARA MAP '<ConnSeqDPT>.FaultStep' is not a DPE in any PM sheet

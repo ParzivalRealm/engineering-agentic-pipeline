@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# LibreOffice creates these while a workbook is open
+.~lock.*#
+
+# Office temporary files
+~$*
+
+# Secrets never enter the repo
+.env

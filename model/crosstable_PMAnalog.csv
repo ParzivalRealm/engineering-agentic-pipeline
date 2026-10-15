@@ -1,0 +1,9 @@
+DPType,DPElement,Type,Direction,PLC Address,Notes
+SSAC_Analog,State.Value,Float,Input,<TX-AI_DB>.SAI,
+SSAC_Analog,Alarm.Alarms,Bit32,Input,<TX-AI_DB>.HMI.Alarm.Alarms,"Was Float. Bit-packed Word, bits 0 to 9 used."
+SSAC_Analog,Config.EngMax,Float,In/Out,<TX-AI_DB>.Retain.HMI.Config.ESMXV,Commissioning sets the transmitter range here - PLC OI-01.
+SSAC_Analog,Config.EngMin,Float,In/Out,<TX-AI_DB>.Retain.HMI.Config.ESMNV,
+SSAC_Analog,Config.FaultSubValueEnable,Bool,In/Out,<TX-AI_DB>.Retain.HMI.Config.SAM,
+SSAC_Analog,Config.FaultSubValue,Float,In/Out,<TX-AI_DB>.Retain.HMI.Config.SAV,Was Bool. SAV is a Real.
+SSAC_Analog,Setpoint.*,Float,In/Out,<TX-AI_DB>.Retain.HMI.Config.SP.Limits.*,"HHH, HH, H, L, LL, LLL alarm limits plus OR and UR. RETAIN. Exclude Interlocks. Address generalised from SP.Limits.HHH."
+SSAC_Analog,Alarm.*,Bool,,,"This is used to hold each type of alarm, is where the unpacked bits of the words go"

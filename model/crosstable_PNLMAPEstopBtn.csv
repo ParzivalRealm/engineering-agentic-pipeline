@@ -1,0 +1,2 @@
+PNL FileName,Shape/Ref,Event,Action,PARA MAP,Notes
+objects/EstopBtn.pnl,Primitive_Text2,Subscribe,Set,PMHMI.Estop.Valves,Added placeholder - the sheet was empty in v1. Add Initialize / Subscribe if the button should show that the E-stop is active.

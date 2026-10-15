@@ -1,0 +1,5 @@
+DPType,DPElement,Type,Direction,PLC Address,Notes
+ValveSV,State.Mode,Int,Input,<ValveSV_DB>.HMI.Controls.Mode,"Was Control.Mode, Output. FB4 overwrites it every scan from ManualMode, so it is status."
+ValveSV,Control.Cmd,Int,In/Out,<ValveSV_DB>.HMI.Controls.Command,Was Output. Returns to 0 on PLC restart; read back so the control shows what the PLC holds.
+ValveSV,State.Lockout,Bool,Input,<ValveSV_DB>.HMI.Status.Lockout,Was HMI.State.Lockout.
+ValveSV,Alarm.Permissive,Bool,Input,<ValveSV_DB>.HMI.Alarms.Permissive,Was HMI.Alarm.Permissive.

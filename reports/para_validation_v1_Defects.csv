@@ -1,0 +1,11 @@
+ID,DPEs,What,Effect,Fix
+D1,43,"Alarm.Alarms on every transmitter has direction Undefined. The master template has Input polling, so the instances diverged from it.","The driver does not read the alarm word. The 430 DP functions that unpack it into Alarm.HHH to Alarm.UR compute from a value that never changes, and the alerts on those bits are all inactive. The transmitter alarm chain is broken at its first link.","Set direction to Input polling on all 43, matching the master."
+D2,43,Config.FaultSubValueEnable on every transmitter is Input spontaneous; the master has In/Out polling on use.,The substitution enable cannot be written from the HMI.,Restore the master's direction.
+D3,35,Alarm.TimeoutClose on every valve has an active Input polling address with no connection and no poll group.,Never read.,"Configure like Alarm.TimeoutOpen: connection _Safestack, poll group _subValveSV."
+D4,3,"Config.FaultSubValue on PX7, PX8 and PX9 is active with the XXX_DB placeholder still in the address.",The driver rejects it.,Set to <DP>.Retain.HMI.Config.SAV.
+D5,3,"HMI.VentSP, HMI.UnlockConfirmSP and HMI.WinCC_OA_InitiateDisconnectSeq are inactive.",Settings writes to those two setpoints go nowhere. The disconnect cannot be started through the HMI datapoint - unless the SequenceTrigger path from the earlier export still exists.,"Activate, or confirm the replacement path."
+D6,1,RDP_ConnSeq.ReqCode goes to HMI.RDP_ConnSeq.HMI_ReqCode; DB84's struct is RDPConnSeq.,RDP requests may never reach the PLC.,"Confirm the PLC struct name, then align."
+D7,3,"The upper annular gate DP uses Cmd_Gate_UpperAnnConnSeq_DB, the name before the OI-15 rename.","If the rename landed, the three permissives point at a DB that does not exist.",Rename the DP to Cmd_Gate_Upper_Annular and re-point.
+D8,6,RDP_CmdGate has no PLC counterpart; every address is a placeholder.,Prototype leftover.,Delete.
+D9,30,HMI_Ack and FaultStep are configured on UBSR only.,Fault acknowledge and fault step work for one element of sixteen.,Replicate the UBSR pattern.
+D10,-,"Archiving is enabled on exactly one valve DPE - State.Position, whose address is inactive - and disabled on every live one. Every alert is inactive.",Nothing that changes is archived.,"Decide what to archive and which alerts to activate (HMI HOI-09, HOI-12)."

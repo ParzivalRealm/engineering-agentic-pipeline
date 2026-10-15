@@ -1,0 +1,17 @@
+Code,Meaning,Satisfies role
+0,Undefined,-
+1,Output,Command
+2,Input spontaneous,Status
+3,Input single query,Status
+4,Input polling,Status
+5,Output single,Command
+6,In/Out spontaneous,Setting
+7,In/Out polling,Setting
+8,In/Out single query,Setting
+9,Alarm,-
+10,Input on demand (unused),-
+11,Input polling on use,Status
+12,In/Out on demand (unused),-
+13,In/Out polling on use,Setting
+14,Input spontaneous on use,Status
+15,In/Out spontaneous on use,Setting

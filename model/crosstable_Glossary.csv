@@ -1,0 +1,21 @@
+Term,Meaning,Values
+Interface,A grouping of PLC data by the kind of object it belongs to. Each interface is one aggregate: its members travel together and map to one WinCC OA DPType.,"Global, Per-Element, Per-Valve, Per-Transmitter"
+Cardinality,"How many instances of the interface exist on SafeStack, and so how many DPs of its DPType.","Global 1, Per-Element 16, Per-Valve 35, Per-Transmitter 43"
+PLC Block,The PLC data block that holds the member. A placeholder stands for one block per instance.,"HMI (DB84), <ConnSeq_DB>, <ValveSV_DB>, <TX-AI_DB>"
+Member,Path of the value inside its PLC block.,
+Role,"What the value is for, seen from the HMI. Role decides the WinCC OA direction.","Status, Setting, Command"
+Status,Owned by the PLC. The HMI only reads it.,Direction: Input
+Setting,"Owned by the HMI but held by the PLC, which can change it without the HMI knowing - a restart, a start value, a program write. The HMI writes it and must read it back.",Direction: In/Out
+Command,A request from the HMI that the PLC consumes. Either the PLC or the HMI clears it; nothing needs reading back.,Direction: Output
+Persistence,"Whether the PLC keeps the value through a restart. A non-retain Setting returns to its start value on restart, which is one reason Settings are read back.","Retain, Non-retain"
+Direction (interface map),"Logical flow, in PLC handover language.","HMI to PLC, PLC to HMI"
+Direction (PARA maps),"Address mode of the DPE's peripheral address, in WinCC OA language. Follows from Role.","Input, Output, In/Out"
+PARA MAP,Where the value lives in WinCC OA: the DPE that carries the peripheral address. The value's entry point. Written as sheet.DPElement.,e.g. PMConnSeq.State
+PNL MAP,The panel that uses the value. Names a PNLMAP sheet.,
+Shape/Ref,The shape or panel reference on the panel that uses the value.,
+Event,The shape event whose script touches the value.,"Initialize, Clicked, Toggled, Command"
+Action,"What the script does with the DPE. Replaces v1 Read, which did not say whether the value is followed after the first read.","Get, Subscribe, Set"
+Get,One-shot read (dpGet). Suits a Setting shown when a panel opens.,
+Subscribe,Continuous read (dpConnect). Required for any Status the operator watches change.,
+Set,Write (dpSet).,
+TBD,Explicit marker for a binding not yet known. Kept so unresolved links can be counted rather than silently missing.,

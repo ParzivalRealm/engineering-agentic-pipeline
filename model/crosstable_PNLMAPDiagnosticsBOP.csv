@@ -1,0 +1,2 @@
+PNL FileName,Shape/Ref,Event,Action,PARA MAP,Notes
+Diagnostics – BOP Controls.pnl,ToggleSwitch_ewo*,"Initialize, Toggled","Get, Set",PMValveSV.Control.Cmd,"on variable sends 2, otherwise it sends 0 and it only sends the command if the system is in manual mode."

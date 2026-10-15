@@ -1,0 +1,3 @@
+Location,PNL FileName,Shape/Ref,Event,Action,PARA MAP,Notes
+SSACLib/objects_parts/faceplates/ssac_valve_sv/,main.xml,btnManual,Initialize,Subscribe,PMValveSV.State.Mode,safestack project doesn’t use the faceplate
+SSACLib/objects_parts/faceplates/ssac_valve_sv/,main.xml,btnAutomatic,Initialize,Subscribe,PMValveSV.State.Mode,As above.

@@ -1,0 +1,58 @@
+DPType,DP naming,Substitution,Expected DPs,DPE,PLC address rule,Rule,Role,Role source,Direction,Note
+HMI,Single DP named HMI,fixed,1,ManualMode,HMI.ManualMode,Required,Setting,cross table v2,In/Out,Non-retain; the PLC restarts in manual.
+HMI,Single DP named HMI,fixed,1,WinCC_OA_InitiateDisconnectSeq,HMI.WinCC_OA_InitiateDisconnectSeq,Required,Command,cross table v2,Output,
+HMI,Single DP named HMI,fixed,1,WinCC_OA_InitiateReconnectSeq,HMI.WinCC_OA_InitiateReconnectSeq,Required,Command,cross table v2,Output,
+HMI,Single DP named HMI,fixed,1,SequenceInProgress,HMI.SequenceInProgress,Required,Status,cross table v2,Input,
+HMI,Single DP named HMI,fixed,1,VentSP,HMI.VentSP,Required,Setting,cross table v2,In/Out,
+HMI,Single DP named HMI,fixed,1,UnlockConfirmSP,HMI.UnlockConfirmSP,Required,Setting,cross table v2,In/Out,
+HMI,Single DP named HMI,fixed,1,LockConfirmSP,HMI.LockConfirmSP,Required,Setting,cross table v2,In/Out,
+HMI,Single DP named HMI,fixed,1,HoldTol,HMI.HoldTol,Required,Setting,cross table v2,In/Out,
+HMI,Single DP named HMI,fixed,1,Estop.Valves,HMI.Estop.Valves,Required,Setting,cross table v2,In/Out,Non-retain; a PLC restart clears it.
+ConnSeq,DP = ConnSeq instance DB name without _DB,{DB} = DP + _DB; {STRUCT} = the element's DB84 struct,16,ReqCode,HMI.{STRUCT}.HMI_ReqCode,Required,Command,cross table v2,Output,
+ConnSeq,DP = ConnSeq instance DB name without _DB,{DB} = DP + _DB; {STRUCT} = the element's DB84 struct,16,HMI_Ack,HMI.{STRUCT}.HMI_Ack,Required,Command,cross table v2,Output,Configured on UBSR only.
+ConnSeq,DP = ConnSeq instance DB name without _DB,{DB} = DP + _DB; {STRUCT} = the element's DB84 struct,16,State,{DB}.State,Required,Status,cross table v2,Input,
+ConnSeq,DP = ConnSeq instance DB name without _DB,{DB} = DP + _DB; {STRUCT} = the element's DB84 struct,16,FaultStep,{DB}.FaultStep,Required,Status,cross table v2,Input,Configured on UBSR only.
+CmdGate,DP = Cmd_Gate instance DB name without _DB,{DB} = the element's Cmd_Gate DB,16,PermissiveLock,{DB}.PermissiveLock,Required,Status,proposed,Input,
+CmdGate,DP = Cmd_Gate instance DB name without _DB,{DB} = the element's Cmd_Gate DB,16,PermissivePrimUnlock,{DB}.PermissiveUnlock,Required,Status,proposed,Input,
+CmdGate,DP = Cmd_Gate instance DB name without _DB,{DB} = the element's Cmd_Gate DB,16,PermissiveSecUnlock,{DB}.PermissiveSecUnlock,Required,Status,proposed,Input,
+CmdGate,DP = Cmd_Gate instance DB name without _DB,{DB} = the element's Cmd_Gate DB,16,VentSP,{DB}.VentSP,Template,Status,proposed,Input,Gate input written every scan from DB84; read-only if ever used.
+CmdGate,DP = Cmd_Gate instance DB name without _DB,{DB} = the element's Cmd_Gate DB,16,ConfirmLockSP,{DB}.LockConfirmSP,Template,Status,proposed,Input,Master points at UnlockConfirmSP - wrong member.
+CmdGate,DP = Cmd_Gate instance DB name without _DB,{DB} = the element's Cmd_Gate DB,16,ConfirmUnlockSP,{DB}.UnlockConfirmSP,Template,Status,proposed,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,Control.Cmd,{DB}.HMI.Controls.Command,Required,Setting,cross table v2,In/Out,Returns to 0 on PLC restart.
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,Control.Mode,{DB}.HMI.Controls.Mode,Required,Status,cross table v2,Input,FB4 overwrites it every scan from ManualMode.
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,State.Open,{DB}.OpenSignal,Required,Status,proposed,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,State.Close,{DB}.CloseSignal,Required,Status,proposed,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,State.Local,{DB}.VML,Required,Status,proposed,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,State.Remote,{DB}.VMR,Required,Status,proposed,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,Alarm.TimeoutOpen,{DB}.HMI.Alarms.TimeoutOpen,Required,Status,proposed,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,Alarm.TimeoutClose,{DB}.HMI.Alarms.TimeoutClose,Required,Status,proposed,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,State.Lockout,{DB}.HMI.Status.Lockout,Template,Status,cross table v2,Input,Master path is XXX_DB.Status.Lockout - missing .HMI.
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,Alarm.Permissive,{DB}.HMI.Alarms.Permissive,Template,Status,cross table v2,Input,
+SSAC_VALVE_SV,"DP = PLC instance DB name, _DB kept",{DB} = DP,35,State.Position,{DB}.HMI.Status.CurrentPositon,Template,Status,proposed,Input,Excluded from the interface. Master direction is Output.
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,State.Value,{DB}.SAI,Required,Status,cross table v2,Input,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.Alarms,{DB}.HMI.Alarm.Alarms,Required,Status,cross table v2,Input,Source of the per-bit alarm DP functions.
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Mode,{DB}.Mode,Required,Setting,proposed,In/Out,Mode 5 is simulation; writable only if the HMI is meant to switch it.
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Config.EngMin,{DB}.Retain.HMI.Config.ESMNV,Required,Setting,cross table v2,In/Out,Commissioning path for PLC OI-01.
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Config.EngMax,{DB}.Retain.HMI.Config.ESMXV,Required,Setting,cross table v2,In/Out,Commissioning path for PLC OI-01.
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Config.FaultSubValueEnable,{DB}.Retain.HMI.Config.SAM,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Config.FaultSubValue,{DB}.Retain.HMI.Config.SAV,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Config.Hysteresis,{DB}.Retain.HMI.Config.SP.HYS.Global,Required,Setting,proposed,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Config.Alarms,{DB}.Retain.HMI.Config.Alarms,Required,Setting,proposed,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.HHH,{DB}.Retain.HMI.Config.SP.Limits.HHH,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.HH,{DB}.Retain.HMI.Config.SP.Limits.HH,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.H,{DB}.Retain.HMI.Config.SP.Limits.H,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.L,{DB}.Retain.HMI.Config.SP.Limits.L,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.LL,{DB}.Retain.HMI.Config.SP.Limits.LL,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.LLL,{DB}.Retain.HMI.Config.SP.Limits.LLL,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.OR,{DB}.Retain.HMI.Config.SP.Limits.OR,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Setpoint.UR,{DB}.Retain.HMI.Config.SP.Limits.UR,Required,Setting,cross table v2,In/Out,
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.HHH,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.HH,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.H,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.L,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.LL,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.LLL,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.OR,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.UR,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.Fault,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).
+SSAC_ANALOG,"DP = PLC instance DB name, _DB kept",{DB} = DP,43,Alarm.SubsituteValue,,Internal,Internal,as built,none,DP function on Alarm.Alarms (bitmask).

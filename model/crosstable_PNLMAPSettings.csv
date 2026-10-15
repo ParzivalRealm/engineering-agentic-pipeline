@@ -1,0 +1,5 @@
+PNL FileName,Shape/Ref,Event,Action,PARA MAP,Notes
+Settings.pnl,VentSP/PUSH_BUTTON1,"Initialize, Clicked","Get, Set",PMHMI.VentSP,
+Settings.pnl,LockSP/PUSH_BUTTON1,"Initialize, Clicked","Get, Set",PMHMI.LockConfirmSP,
+Settings.pnl,UnlkSP/PUSH_BUTTON1,"Initialize, Clicked","Get, Set",PMHMI.UnlockConfirmSP,
+Settings.pnl,HoldTol/PUSH_BUTTON1,"Initialize, Clicked","Get, Set",PMHMI.HoldTol,

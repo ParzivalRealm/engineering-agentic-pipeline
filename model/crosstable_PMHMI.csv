@@ -1,0 +1,11 @@
+DPType,DPElement,Type,Direction,PLC Address,Notes,Unnamed: 10
+HMI,ManualMode,Bool,In/Out,HMI.ManualMode,Was Output. Non-retain Setting: read back so the HMI shows the mode the PLC is in after a restart.,
+HMI,WinCC_OA_InitiateReconnectSeq,Bool,Output,HMI.WinCC_OA_InitiateReconnectSeq,,
+HMI,WinCC_OA_InitiateDisconnectSeq,Bool,Output,HMI.WinCC_OA_InitiateDisconnectSeq,,
+HMI,SequenceInProgress,Bool,Input,HMI.SequenceInProgress,,
+HMI,VentSP,Float,In/Out,HMI.VentSP,Was Output. Returns to 100.0 on PLC restart.,
+HMI,UnlockConfirmSP,Float,In/Out,HMI.UnlockConfirmSP,Was Output. Returns to 1400.0 on PLC restart.,
+HMI,LockConfirmSP,Float,In/Out,HMI.LockConfirmSP,Was Output. Returns to 1400.0 on PLC restart.,
+HMI,Estop.Valves,Bool,In/Out,HMI.Estop.Valves,Was Output. Cleared by a PLC restart; read back so the HMI never shows an E-stop the PLC no longer holds.,
+HMI,HoldTol,Float,In/Out,HMI.HoldTol,Was Output. Returns to 200.0 on PLC restart.,
+,,,,,,PMHMI.Estop.Valves
