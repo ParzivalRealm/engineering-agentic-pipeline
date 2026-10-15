@@ -2,5 +2,5 @@ PNL FileName,Shape/Ref,Event,Action,PARA MAP,Notes
 SSChangeStatePopUp.pnl,btnConfirm,Clicked,Set,PMConnSeq.ReqCode,
 SSChangeStatePopUp.pnl,btnAction,Clicked,Set,g_bActionRequested,Not on Para but on the scope lib variable of the panel
 SSChangeStatePopUp.pnl,"CurrentStateIcon, CurrentStateText",Initialize,Subscribe,PMConnSeq.State,
-SSChangeStatePopUp.pnl,HMI_ACK,"Initialize, Clicked","Subscribe, Clicked",PMConnsSeq.HMI_Ack,
+SSChangeStatePopUp.pnl,HMI_ACK,"Initialize, Clicked","Subscribe, Set",PMConnSeq.HMI_Ack,
 SSChangeStatePopUp.pnl,"btnAction, txtCountdown",Initialize,Subscribe,g_iSeqInProgress,Not on Para but on the scope lib variable of the panel

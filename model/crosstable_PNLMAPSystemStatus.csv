@@ -1,4 +1,4 @@
 PNL FileName,Shape/Ref,Event,Action,PARA MAP,Notes
-SystemStatus – Copy.pnl,PUSH_BUTTON1,"Initialize, Clicked","Get, Set",HMI.WinCC_OA_InitiateDisconnectSeq,
-SystemStatus – Copy.pnl,PUSH_BUTTON2,"Initialize, Clicked","Get, Set",HMI.WinCC_OA_InitiateReconnectSeq,
-SystemStatus – Copy.pnl,TABLE1,Initialize,Get,<ConnSeqDPT>.FaultStep,
+SystemStatus – Copy.pnl,PUSH_BUTTON1,"Initialize, Clicked","Get, Set",PMHMI.WinCC_OA_InitiateDisconnectSeq,
+SystemStatus – Copy.pnl,PUSH_BUTTON2,"Initialize, Clicked","Get, Set",PMHMI.WinCC_OA_InitiateReconnectSeq,
+SystemStatus – Copy.pnl,TABLE1,Initialize,Get,PMConnSeq.FaultStep,
