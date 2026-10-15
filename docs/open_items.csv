@@ -1,0 +1,45 @@
+ID,Lane,Title,Status,Owner,Next action,Depends on,Source,Done when
+CT-01,Model,ManualMode points to PNLMAPSystemStatus but no shape there binds it,Ready,Santos,"Add the shape row that binds PMHMI.ManualMode, or correct the PNL MAP",,Link check rule 3,Link check no longer lists ManualMode
+CT-02,Model,"SequenceInProgress is bound to no panel in the model, but is bound in the real panels",Ready,Executor,"Run the read-only SequenceInProgress trace (chat, 14 Oct); approve the proposal it writes to proposals/",,Link check rule 4,Approved proposal applied; link check no longer lists it
+CT-03,Model,"HMI.Status.Lockout points to PNLMAP_VALVESV, a faceplate SafeStack does not use",Ready,Santos,"Clear its PNL MAP (not bound, by design) or add the real binding",,Link check rule 3,Link check no longer lists Lockout
+CT-04,Model,"HMI.Alarms.Permissive points to PNLMAP_VALVESV, a faceplate SafeStack does not use",Ready,Santos,Same as CT-03,,Link check rule 3,Link check no longer lists Permissive
+CT-05,Model,Alarm.Alarms reaches the faceplate only through the derived Alarm.* bits,Needs decision,Santos,Decide how the model marks derived values (e.g. Direction 'Derived' on Alarm.*); then the link check learns to follow it,,Link check rule 3; model README,Link check follows the derived chain
+CT-06,Model,"Config.FaultSubValue is not bound: 'checkbox, PANEL_REF4' binds only the enable",Ready,Santos,"Split into two rows: checkbox binds FaultSubValueEnable, PANEL_REF4 binds FaultSubValue (if that is what it binds)",,Link check rule 3,Link check no longer lists FaultSubValue
+CT-07,Model,Estop.Pumps lives on the Control Room PLC; its row points to PMHMI.Estop.Valves,Needs info,Santos,Supply the Control Room DB and the WinCC OA DPE that carry it; rewrite the row,CT-08,Model README; chat 14 Oct,"Row names the right station, DB and DPE"
+CT-08,Model,The model has no station or connection dimension,Needs decision,Santos,Add Station and Connection columns to the interface map,,Chat 14 Oct,Columns exist; validator can check 'a DPE uses its station's connection'
+CT-09,Model,"PNLMAPEstopBtn row: Event reads 'Subscribe', Action reads 'Set'; placeholder note left",Ready,Santos,"Event 'Initialize, Clicked'; Action 'Subscribe, Set'; remove the placeholder note",,Model README,Row reads correctly
+CT-10,Model,"HMI_ACK Action reads 'Subscribe, Clicked' (Clicked is an event)",Ready,Santos,"Change to 'Subscribe, Set' (skip if already done with the typo fix)",,Chat 14 Oct,Row reads correctly
+CT-11,Model,Stray cell 'PMHMI.Estop.Valves' outside the PMHMI table (column 11),Ready,Santos,Delete it,,Model README,Export of PMHMI has no extra column
+CT-12,Model,Location column exists on only two of seven PNL sheets,Needs decision,Santos,"Add Location to all PNL sheets, or remove it",,Model README,Every PNL sheet has the same columns
+CT-13,Model,Panel variables are marked 'Not on Para' only in Notes,Ready,Santos,"Write them as VAR:g_bActionRequested, VAR:g_iSeqInProgress in PARA MAP (the link check already honours VAR:)",,Model README,No Notes-text markers left
+CT-14,Model,No authority is declared per relation (model wins or implementation wins),Needs decision,Santos,Declare authority for PARA addresses and for panel bindings,,Chat 14 Oct; reference doc,Recorded in the hand-off or a decision record
+CT-15,Model,Keys can still be mistyped,Ready,Santos,Add Data > Validity dropdowns for PARA MAP and PNL MAP,,Chat 14 Oct,Dropdowns in place; link check unchanged
+CT-16,Model,HMI.Diag.SV is in the PLC handover (6.4) but not in the cross table,Needs decision,Santos,"Add it to PMAnalog, or drop it from the handover",,HMI handover HOI-18,"One answer, recorded"
+P1,Build,Phase 1: build para-read,Ready,Executor,"Paste hand-off rev 2, section 8, into Claude Code as a build task",,Hand-off rev 2,Five acceptance tests reported; tools/para committed; .env not committed
+OI-T02,Build,Validator must read para-read's CSV and be system-aware,Blocked,Planner,Write it against the first real para-read export,P1,Hand-off rev 2,Validator reproduces validation v1 from a para-read export
+OI-T03,Build,Meaning of _lowlevel and _internal,Blocked,Executor,Reported in the Phase 1 research,P1,Hand-off rev 2,Two-sentence answers recorded
+OI-T04,Build,Is a DPE addressed to another station's connection ever valid?,Needs decision,Santos,Decide; Estop.Pumps on the Control Room is the first real case,CT-08,Hand-off rev 2,Rule written
+OI-T07,Build,get-value cannot read config attributes (upstream limitation),Optional,Santos,Report to the MCP server's maintainers,,Hand-off rev 2,Issue filed
+OI-T08,Build,"Rules do not yet cover lowlevel, poll group per element, or driver number",Blocked,Planner,Add in validator v2,OI-T02,Hand-off rev 2,Rules added
+OI-T09,Build,_datatype 0 on Alarm.Alarms and six limits: valid or not?,Blocked,Executor,Reported in the Phase 1 research,P1,Hand-off rev 2,Known whether D1 needs one fix or two
+P2,Build,Phase 2: build para-fix,Blocked,Executor,Issue after rung 1 passes,"P1, OI-T02, AL",Hand-off rev 2,"Dry-run, stale and unlisted tests pass"
+AL,Build,Generate allowlist.json from the validation,Blocked,Planner,"Generate from validator output with seen, value, rule",OI-T02,Chat 13 Oct,File exists; rows match defects D1-D5
+CAP-1,Build,Panel reader (PNL facts),Blocked,Planner,Design from what the CT-02 trace finds,CT-02,Chat 14 Oct,Design agreed
+D1,Run,Alarm.Alarms direction Undefined on 43 transmitters,Blocked,Executor,Fix through para-fix (rung 3),"P2, OI-T09",Validation v1,Re-validation finds none
+D2,Run,Config.FaultSubValueEnable is Input on 43 transmitters; master is In/Out,Blocked,Executor,Fix through para-fix,P2,Validation v1,Re-validation finds none
+D3,Run,Alarm.TimeoutClose has no connection or poll group on 35 valves,Blocked,Executor,Fix through para-fix,P2,Validation v1,Re-validation finds none
+D4,Run,"Config.FaultSubValue still holds XXX_DB on PX7, PX8, PX9",Blocked,Executor,First live fix: PX9 (rung 2),P2,Validation v1,Re-validation finds none
+D5,Run,"HMI.VentSP, HMI.UnlockConfirmSP and InitiateDisconnectSeq addresses inactive",Needs info,Santos,Confirm which path starts the disconnect now; then activate the two setpoints,,Validation v1,Settings writes reach the PLC
+D6,Run,RDP ReqCode addressed to HMI.RDP_ConnSeq; DB84 struct was RDPConnSeq,Needs info,Santos,Confirm the struct name in the PLC,,Validation v1,Address matches the PLC
+D7,Run,Upper annular gate DP uses the pre-OI-15 DB name,Needs info,Santos,Confirm the rename landed; then rename the DP and re-point,,Validation v1,Address matches the PLC
+D8,Run,RDP_CmdGate is a stray datapoint,Ready,Santos,Delete it in WinCC OA (no tool deletes datapoints),,Validation v1,Datapoint gone; next export has 16 CmdGate
+D9,Run,HMI_Ack and FaultStep configured on UBSR only,Blocked,Executor,"Generate for the other 15 elements (rung 4, HOI-11)",D1-D4 done,Validation v1,All 16 configured
+D10,Run,No archiving on live values; every alert inactive,Needs decision,Santos,Decide what to archive and which alerts to activate,,Validation v1,Decision recorded
+X1,Run,SSAC_ANALOG master makes most Settings Input-only (library),Needs decision,Santos + library owner,"Decide; fix in the library, not the project",,Validation v1,Library updated or rule changed
+X2,Run,SSAC_VALVE_SV Control.Cmd and Control.Mode are Output,Needs decision,Santos,Accept the library default or override per project,,Validation v1,Decision recorded
+X3,Run,"HMI setpoints, HoldTol, ManualMode, Estop.Valves are Output (rule says In/Out)",Needs decision,Santos,Align the configuration or the rule,,Validation v1,Rule and configuration agree
+X4,Run,ConnSeq.HMI_Ack is In/Out (rule says Output),Needs decision,Santos,Align either side (trivial),,Validation v1,Rule and configuration agree
+OI-16,PLC,Reconnect guard: De Morgan error in OB1 network 5; disconnect lacks its own S_ACTIVE guard,Confirm status,Santos,"Confirm whether fixed during the end-to-end test; if not, two negated contacts in both networks",,PLC handover rev 3,Test TC20 passes
+TS-8.1,PLC,Stack sequences may stop being called after they start (initiate bit reset),Confirm status,Santos,"Run TC17-TC19, or confirm from the end-to-end test",,Test specification 8.1,A full disconnect runs to completion
+TS-8.2,PLC,FB8 T3/T4 read PX9 (lock) where PX10 (primary unlock) is expected,Confirm status,Santos,Check FB8's transitions,,Test specification 8.2,Transitions confirmed or corrected
+OI-01,PLC,Transmitter ranges set at commissioning,Open,Team,EngMin/EngMax through the SSAC_Analog config faceplate,,PLC handover rev 3,Ranges recorded
