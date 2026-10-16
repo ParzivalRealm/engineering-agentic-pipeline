@@ -54,3 +54,16 @@ The register is the planner's input. A safe first run task:
 | CAP- | Capability: a new reader the system needs | Chat design notes |
 | OI-01, OI-16 | PLC open items | PLC handover rev 3 |
 | TS-8.x | Notes before first execution | Test specification, section 8 |
+
+## Testing ladder
+
+Each rung proves one capability against answers already known. Climb in order.
+
+| Rung | What it proves | Register items |
+|---|---|---|
+| 1 Reproduce | para-read and the validator re-find validation v1's defects, read-only (D1: 43, D3: 35, D4: 3) | P1, OI-T02 |
+| 2 Fix one | para-fix applies one approved fix; re-validation confirms it | P2, AL, D4 (PX9 only) |
+| 3 Fix a class | the same fix across a whole defect class | D1 (all 43), then D2, D3 |
+| 4 Generate | the system creates missing configuration, not just repairs it | D9 |
+| 5 Cross-layer | panel writes checked against PARA directions | CT-02, CAP-1 |
+| 6 From scratch | a new element or station built from its PLC code | future |
